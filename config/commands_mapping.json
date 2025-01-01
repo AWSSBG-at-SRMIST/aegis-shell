@@ -1,0 +1,125 @@
+{
+    "curl": {
+        "language": "system",
+        "install_cmd": "winget install curl"
+    },
+    "git": {
+        "language": "system",
+        "install_cmd": "winget install Git.Git"
+    },
+    "python": {
+        "language": "python",
+        "install_cmd": "winget install Python.Python.3.12"
+    },
+    "node": {
+        "language": "javascript",
+        "install_cmd": "winget install OpenJS.NodeJS"
+    },
+    "npm": {
+        "language": "javascript",
+        "install_cmd": "winget install OpenJS.NodeJS"
+    },
+    "pip": {
+        "language": "python",
+        "install_cmd": "winget install Python.Python.3.12"
+    },
+    "pip3": {
+        "language": "python",
+        "install_cmd": "winget install Python.Python.3.12"
+    },
+    "flask": {
+        "language": "python",
+        "install_cmd": "pip install flask"
+    },
+    "django": {
+        "language": "python",
+        "install_cmd": "pip install django"
+    },
+    "numpy": {
+        "language": "python",
+        "install_cmd": "pip install numpy"
+    },
+    "pandas": {
+        "language": "python",
+        "install_cmd": "pip install pandas"
+    },
+    "docker": {
+        "language": "system",
+        "install_cmd": "winget install Docker.DockerDesktop"
+    },
+    "vscode": {
+        "language": "system",
+        "install_cmd": "winget install Microsoft.VisualStudioCode"
+    },
+    "react": {
+        "language": "javascript",
+        "install_cmd": "npm install -g create-react-app"
+    },
+    "vue": {
+        "language": "javascript",
+        "install_cmd": "npm install -g @vue/cli"
+    },
+    "mysql": {
+        "language": "system",
+        "install_cmd": "winget install Oracle.MySQL"
+    },
+    "mongodb": {
+        "language": "system",
+        "install_cmd": "winget install MongoDB.Server"
+    },
+    "tensorflow": {
+        "language": "python",
+        "install_cmd": "pip install tensorflow"
+    },
+    "pytorch": {
+        "language": "python",
+        "install_cmd": "pip install torch"
+    },
+    "aws": {
+        "language": "system",
+        "install_cmd": "winget install Amazon.AWSCLI"
+    },
+    "heroku": {
+        "language": "system",
+        "install_cmd": "winget install Heroku.CLI"
+    },
+    "ffmpeg": {
+        "language": "system",
+        "install_cmd": "winget install Gyan.FFmpeg"
+    },
+    "pipreqs": {
+        "language": "python",
+        "install_cmd": "pip install pipreqs"
+    },
+    "pyshorteners": {
+        "language": "python",
+        "install_cmd": "pip install pyshorteners"
+    },
+    "maven": {
+        "language": "system",
+        "install_cmd": "winget install Apache.Maven"
+    },
+    "mvn": {
+        "language": "system",
+        "install_cmd": "winget install Apache.Maven"
+    },
+    "apt": {
+        "language": "multi",
+        "options": {
+            "windows": "winget install apt-tools",
+            "linux": "This is typically pre-installed on Debian/Ubuntu systems"
+        }
+    },
+    "faq": {
+        "language": "internal",
+        "description": "Show frequently asked questions"
+    },
+    "pipreq": {
+        "language": "python",
+        "install_cmd": "pip install pipreqs"
+    },
+    "opencv": {
+        "language": "python",
+        "install_cmd": "pip install opencv-python"
+    }
+}

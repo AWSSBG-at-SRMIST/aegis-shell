@@ -1,0 +1,1721 @@
+
+────────────────────────────────────────────────────────────────
+  1 · Router — detect_dialect()
+────────────────────────────────────────────────────────────────
+  [PASS] PS     'Get-Process'  → 'powershell'
+  [PASS] PS     'Set-Location C:\\Users'  → 'powershell'
+  [PASS] PS     'New-Item -ItemType File t.txt'  → 'powershell'
+  [PASS] PS     "Write-Host 'hello'"  → 'powershell'
+  [PASS] PS     'Get-ChildItem -Recurse'  → 'powershell'
+  [PASS] PS     'Stop-Process -Name chrome'  → 'powershell'
+  [PASS] PS     'Invoke-WebRequest -Uri https://example.com'  → 'powershell'
+  [PASS] PS     'ConvertTo-Json $obj'  → 'powershell'
+  [PASS] PS     'Import-Module posh-git'  → 'powershell'
+  [PASS] PS     '$env:PATH'  → 'powershell'
+  [PASS] PS     '$var = 42'  → 'powershell'
+  [PASS] PS     'Get-Process | Where-Object { $_.CPU -gt 10 }'  → 'powershell'
+  [PASS] PS     'Select-Object Name, CPU'  → 'powershell'
+  [PASS] PS     'ForEach-Object { $_ }'  → 'powershell'
+  [PASS] PS     'Out-File result.txt'  → 'powershell'
+  [PASS] PS     'Test-Path C:\\temp'  → 'powershell'
+  [PASS] CMD    'dir /s'  → 'cmd'
+  [PASS] CMD    'cls'  → 'cmd'
+  [PASS] CMD    'md newfolder'  → 'cmd'
+  [PASS] CMD    'type README.md'  → 'cmd'
+  [PASS] CMD    'tree /f'  → 'cmd'
+  [PASS] CMD    'ren old.txt new.txt'  → 'cmd'
+  [PASS] CMD    'color 0a'  → 'cmd'
+  [PASS] CMD    'title MyShell'  → 'cmd'
+  [PASS] CMD    'pushd temp'  → 'cmd'
+  [PASS] CMD    'popd'  → 'cmd'
+  [PASS] CMD    'echo hello world'  → 'cmd'
+  [PASS] CMD    'set MYVAR=1'  → 'cmd'
+  [PASS] CMD    'ver'  → 'cmd'
+  [PASS] CMD    'date /t'  → 'cmd'
+  [PASS] CMD    'time /t'  → 'cmd'
+  [PASS] UNIX   'ls -la'  → 'unix_on_windows'
+  [PASS] UNIX   'cat file.txt'  → 'unix_on_windows'
+  [PASS] UNIX   'rm -rf temp'  → 'unix_on_windows'
+  [PASS] UNIX   'grep pattern file.txt'  → 'unix_on_windows'
+  [PASS] UNIX   'pwd'  → 'unix_on_windows'
+  [PASS] UNIX   'mkdir newdir'  → 'unix_on_windows'
+  [PASS] UNIX   'which python'  → 'unix_on_windows'
+  [PASS] UNIX   'kill 1234'  → 'unix_on_windows'
+  [PASS] UNIX   'clear'  → 'unix_on_windows'
+  [PASS] UNIX   'cp src dst'  → 'unix_on_windows'
+  [PASS] UNIX   'mv old new'  → 'unix_on_windows'
+  [PASS] UNIX   'diff a.txt b.txt'  → 'unix_on_windows'
+  [PASS] UNIX   'touch newfile.txt'  → 'unix_on_windows'
+  [PASS] UNIX   'man git'  → 'unix_on_windows'
+  [PASS] UNIX   'head -n 20 log.txt'  → 'unix_on_windows'
+  [PASS] DIRECT 'pip install flask'  → 'direct'
+  [PASS] DIRECT 'pip3 install numpy'  → 'direct'
+  [PASS] DIRECT 'npm install react'  → 'direct'
+  [PASS] DIRECT 'yarn add axios'  → 'direct'
+  [PASS] DIRECT 'npx create-react-app myapp'  → 'direct'
+  [PASS] DIRECT 'pnpm install'  → 'direct'
+  [PASS] DIRECT 'winget install Git.Git'  → 'direct'
+  [PASS] DIRECT 'choco install nodejs'  → 'direct'
+  [PASS] DIRECT 'scoop install curl'  → 'direct'
+  [PASS] DIRECT 'cargo build --release'  → 'direct'
+  [PASS] DIRECT 'dotnet run'  → 'direct'
+  [PASS] DIRECT 'gem install bundler'  → 'direct'
+  [PASS] DIRECT 'go build .'  → 'direct'
+  [PASS] DIRECT 'composer install'  → 'direct'
+  [PASS] DIRECT 'nuget restore'  → 'direct'
+  [PASS] SCRIPT 'run.py'  → 'script'
+  [PASS] SCRIPT 'script.ps1'  → 'script'
+  [PASS] SCRIPT 'install.sh'  → 'script'
+  [PASS] SCRIPT 'app.js'  → 'script'
+  [PASS] SCRIPT 'build.bat'  → 'script'
+  [PASS] SCRIPT 'setup.cmd'  → 'script'
+  [PASS] SCRIPT 'main.rb'  → 'script'
+  [PASS] SCRIPT 'index.php'  → 'script'
+  [PASS] SCRIPT 'app.ts'  → 'script'
+  [PASS] UNKNWN 'git status'  → 'unknown'
+  [PASS] UNKNWN 'docker run hello-world'  → 'unknown'
+  [PASS] UNKNWN 'python app.py'  → 'unknown'
+  [PASS] UNKNWN 'node server.js'  → 'unknown'
+  [PASS] UNKNWN 'ffmpeg -i in.mp4 out.mp4'  → 'unknown'
+  [PASS] UNKNWN 'kubectl get pods'  → 'unknown'
+  [PASS] UNKNWN 'terraform apply'  → 'unknown'
+  [PASS] UNKNWN 'heroku logs --tail'  → 'unknown'
+  [PASS] UNKNWN 'aws s3 ls'  → 'unknown'
+  [PASS] UNKNWN 'make install'  → 'unknown'
+
+────────────────────────────────────────────────────────────────
+  2 · Router — build_subprocess_args()
+────────────────────────────────────────────────────────────────
+  [PASS] PS      → powershell -NoProfile -Command
+  [PASS] CMD     → cmd /c dir /s
+  [PASS] direct  → [pip, install, flask]  → ['pip', 'install', 'flask']
+  [PASS] script  → python run.py
+  [PASS] script  → node app.js
+  [PASS] script  → powershell -File
+  [PASS] unix_on_win → cmd /c dir
+  [PASS] unknown/Win → powershell
+
+────────────────────────────────────────────────────────────────
+  3 · Router — get_base() + is_available()
+────────────────────────────────────────────────────────────────
+  [PASS] get_base 'pip install flask'
+  [PASS] get_base '  ls   -la  '
+  [PASS] get_base 'Get-Process -Name chrome'
+  [PASS] get_base 'python3 app.py'
+  [PASS] get_base 'npm run build'
+  [PASS] get_base 'docker exec -it ctr sh'
+  [PASS] is_available python
+  [PASS] is_available pip
+  [PASS] is_available git
+  [PASS] is_available NOTREAL
+
+────────────────────────────────────────────────────────────────
+  4 · SecurityManager — validate_command()
+────────────────────────────────────────────────────────────────
+  [PASS] SAFE  'python app.py'  → 'True (Command is safe)'
+  [PASS] SAFE  'pip install requests'  → 'True (Command is safe)'
+  [PASS] SAFE  'git status'  → 'True (Command is safe)'
+  [PASS] SAFE  'git log --oneline'  → 'True (Command is safe)'
+  [PASS] SAFE  'node server.js'  → 'True (Command is safe)'
+  [PASS] SAFE  'npm run build'  → 'True (Command is safe)'
+  [PASS] SAFE  'docker ps'  → 'True (Command is safe)'
+  [PASS] SAFE  'Get-Process'  → 'True (Command is safe)'
+  [PASS] SAFE  'dir'  → 'True (Command is safe)'
+  [PASS] SAFE  'python --version'  → 'True (Command is safe)'
+  [PASS] SAFE  'pip list'  → 'True (Command is safe)'
+  [PASS] SAFE  'cargo build'  → 'True (Command is safe)'
+  [PASS] SAFE  'go test ./...'  → 'True (Command is safe)'
+[Aegis] Warning: "del" can be destructive.
+  Command: del temp.txt
+  [PASS] WARN+y 'del temp.txt'  → True
+[Aegis] Warning: "rm" can be destructive.
+  Command: rm -rf build
+  [PASS] WARN+y 'rm -rf build'  → True
+[Aegis] Warning: "rd" can be destructive.
+  Command: rd /s /q dist
+  [PASS] WARN+y 'rd /s /q dist'  → True
+[Aegis] Warning: "taskkill" can be destructive.
+  Command: taskkill /im python.exe
+  [PASS] WARN+y 'taskkill /im python.exe'  → True
+[Aegis] Warning: "del" can be destructive.
+  Command: del temp.txt
+  [PASS] WARN+n 'del temp.txt'  → False
+[Aegis] Warning: "rm" can be destructive.
+  Command: rm -rf build
+  [PASS] WARN+n 'rm -rf build'  → False
+[Aegis] WARNING: "format" is destructive.
+  Command: format C:
+  [PASS] BLOCK+yes 'format C:'  → True
+[Aegis] WARNING: "shutdown" is destructive.
+  Command: shutdown /s /t 0
+  [PASS] BLOCK+yes 'shutdown /s /t 0'  → True
+[Aegis] WARNING: "format" is destructive.
+  Command: format C:
+  [PASS] BLOCK+N  'format C:'  → False
+[Aegis] WARNING: "shutdown" is destructive.
+  Command: shutdown /s /t 0
+  [PASS] BLOCK+N  'shutdown /s /t 0'  → False
+  [PASS] validate_command returns 2-tuple
+  [PASS] validate_command[0] is bool
+  [PASS] validate_command[1] is str
+
+────────────────────────────────────────────────────────────────
+  5 · config_loader — load_command_mappings()
+────────────────────────────────────────────────────────────────
+  [PASS] Returns dict
+  [PASS] Non-empty  → 30
+  [PASS] 'git' in mappings
+  [PASS] 'pip' in mappings
+  [PASS] 'docker' in mappings
+  [PASS] 'node' in mappings
+  [PASS] 'python' in mappings
+  [PASS] 'npm' in mappings
+  Total entries: 30
+
+────────────────────────────────────────────────────────────────
+  6 · Themes
+────────────────────────────────────────────────────────────────
+  [PASS] list_themes returns list
+  [PASS] list_themes non-empty
+  [PASS] default in themes
+  [PASS] dark in themes
+  [PASS] hacker in themes
+  [PASS] light in themes
+  [PASS] minimal in themes
+  [PASS] set_theme('default') = True  → True
+  [PASS] current_theme() = 'default'  → 'default'
+  [PASS] set_theme('dark') = True  → True
+  [PASS] current_theme() = 'dark'  → 'dark'
+  [PASS] set_theme('light') = True  → True
+  [PASS] current_theme() = 'light'  → 'light'
+  [PASS] set_theme('hacker') = True  → True
+  [PASS] current_theme() = 'hacker'  → 'hacker'
+  [PASS] set_theme('minimal') = True  → True
+  [PASS] current_theme() = 'minimal'  → 'minimal'
+  [PASS] set_theme invalid = False
+  [PASS] theme_c('prompt') returns str
+  [PASS] theme_c('prompt') non-empty
+  [PASS] theme_c('info') returns str
+  [PASS] theme_c('info') non-empty
+  [PASS] theme_c('success') returns str
+  [PASS] theme_c('success') non-empty
+  [PASS] theme_c('warning') returns str
+  [PASS] theme_c('warning') non-empty
+  [PASS] theme_c('error') returns str
+  [PASS] theme_c('error') non-empty
+  [PASS] theme_c('muted') returns str
+  [PASS] theme_c('muted') non-empty
+  [PASS] theme_c('highlight') returns str
+  [PASS] theme_c('highlight') non-empty
+  [PASS] theme_c('reset') returns str
+  [PASS] theme_c('reset') non-empty
+
+────────────────────────────────────────────────────────────────
+  7 · Session Variables
+────────────────────────────────────────────────────────────────
+  [PASS] is_assignment $A = hello
+  [PASS] is_assignment $X=42
+  [PASS] is_assignment $PATH_DIR = /x
+  [PASS] NOT assignment: git status
+  [PASS] NOT assignment: echo $MYVAR
+  [PASS] NOT assignment: $VAR
+[Aegis] $MYVAR = hello
+[Aegis] $PORT = 8080
+[Aegis] $PROJECT = aegis
+  [PASS] _vars["MYVAR"] = hello  → 'hello'
+  [PASS] _vars["PORT"] = 8080  → '8080'
+  [PASS] env["MYVAR"] set
+  [PASS] expand $MYVAR
+  [PASS] expand $PORT in cmd
+  [PASS] expand two vars
+  [PASS] expand unknown var passthrough
+[Aegis] $PORT unset.
+  [PASS] after unset $PORT not in _vars
+  [PASS] list_vars shows MYVAR
+  [PASS] list_vars shows PROJECT
+  [PASS] list_vars no PORT
+
+────────────────────────────────────────────────────────────────
+  8 · Credential Manager
+────────────────────────────────────────────────────────────────
+[Aegis] Secret "GITHUB_TOKEN" stored.
+[Aegis] Secret "DB_PASS" stored.
+[Aegis] Secret "API_KEY" stored.
+  [PASS] secret_get GITHUB_TOKEN
+  [PASS] secret_get DB_PASS
+  [PASS] secret_get API_KEY
+  [PASS] secret_get nonexistent
+  [PASS] secret_list shows GITHUB_TOKEN
+  [PASS] secret_list shows DB_PASS
+  [PASS] secret_list shows API_KEY
+  [PASS] secret_list hides values
+  [PASS] expand_secrets replaces $SECRET:GITHUB_TOKEN
+  [PASS] expand_secrets removes $SECRET: prefix
+  [PASS] expand_secrets replaces $SECRET:DB_PASS
+[Aegis] Warning: $SECRET:MISSING_KEY not found.
+  [PASS] expand_secrets keeps unknown key
+[Aegis] Secret "DB_PASS" deleted.
+  [PASS] after delete secret_get DB_PASS = ""
+  [PASS] secret persists across get calls
+
+────────────────────────────────────────────────────────────────
+  9 · Audit Log
+────────────────────────────────────────────────────────────────
+  [PASS] read_log returns list
+  [PASS] read_log has 5 entries  → 5
+  [PASS] first entry cmd correct
+  [PASS] entry has timestamp
+  [PASS] entry has ok bool
+  [PASS] entry has duration
+  [PASS] failed entry ok=False
+  [PASS] success entry ok=True
+  [PASS] read_log limit=2 returns 2  → 2
+  [PASS] read_log limit returns latest
+  [PASS] audit line is valid JSON (git status)
+  [PASS] audit line is valid JSON (pip install flask)
+  [PASS] audit line is valid JSON (bad_command)
+  [PASS] audit line is valid JSON (python app.py)
+  [PASS] audit line is valid JSON (rm -rf /oops)
+
+────────────────────────────────────────────────────────────────
+  10 · Session Recorder
+────────────────────────────────────────────────────────────────
+  [PASS] Not recording initially
+  [PASS] start() returns a path
+  [PASS] is_recording = True after start
+  [PASS] current_file set
+  [PASS] stop() returns path
+  [PASS] is_recording = False after stop
+  [PASS] current_file cleared
+  [PASS] recording file exists
+  [PASS] content has git status
+  [PASS] content has pip install
+  [PASS] content has output
+  [PASS] content has header
+  [PASS] record_input after stop is no-op
+
+────────────────────────────────────────────────────────────────
+  11 · Macros — record, replay, list, delete
+────────────────────────────────────────────────────────────────
+  [PASS] Not recording initially
+[Aegis] Recording macro "deploy". Type commands. "macro stop" to finish.
+  [PASS] is_recording after start
+  [PASS] current_name = deploy
+[Aegis] Macro "deploy" saved (4 steps).
+  [PASS] is_recording False after stop
+  [PASS] macro "deploy" saved
+  [PASS] deploy has 4 steps  → 4
+  [PASS] first step correct  → 'echo macro step 1'
+[Aegis] Recording macro "test". Type commands. "macro stop" to finish.
+[Aegis] Macro "test" saved (2 steps).
+  [PASS] list shows deploy
+  [PASS] list shows test
+  [PASS] list shows step count
+
+  [REAL EXECUTION] macro deploy:
+[Aegis] Running macro "deploy" (4 steps)...
+[1/4] echo macro step 1
+macro step 1
+[2/4] python --version
+Python 3.13.14
+[3/4] pip --version
+pip 26.1.2 from C:\Users\Tanish-Poddar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pip (python 3.13)
+
+[4/4] echo macro step 4 done
+macro step 4 done
+  [PASS] run macro executed 4 commands  → 4
+  [PASS] at least 1 succeeded  → 4
+  [PASS] run nonexistent macro = False  → False
+[Aegis] Macro "test" deleted.
+  [PASS] after delete "test" gone
+  [PASS] deploy still present
+[Aegis] Recording macro "alpha". Type commands. "macro stop" to finish.
+  [PASS] double-start warns, keeps alpha
+[Aegis] Macro "alpha" saved (0 steps).
+
+────────────────────────────────────────────────────────────────
+  12 · Hooks — register, fire, clear
+────────────────────────────────────────────────────────────────
+  [PASS] fire before_command called hook_a
+  [PASS] fire before_command called hook_b
+  [PASS] fire after_command called hook_a
+  [PASS] fire hook that raises does not crash
+  [PASS] fire unknown event is no-op
+  [PASS] after clear(event) hooks not called
+  [PASS] after clear() _hooks empty
+
+────────────────────────────────────────────────────────────────
+  13 · Dev Workflow — load_dotenv()
+────────────────────────────────────────────────────────────────
+  [PASS] load_dotenv no file = {}  → {}
+  [PASS] load_dotenv returns dict
+  [PASS] loads DB_HOST=localhost
+  [PASS] loads DB_PORT=5432
+  [PASS] loads APP_NAME
+  [PASS] strips double quotes from value
+  [PASS] strips single quotes from value
+  [PASS] skips comment lines
+  [PASS] sets env var DB_HOST
+  [PASS] sets env var DB_PORT
+
+────────────────────────────────────────────────────────────────
+  14 · Dev Workflow — detect_venv()
+────────────────────────────────────────────────────────────────
+  [PASS] detect_venv no venv = None
+  [PASS] detect_venv finds venv/
+  [PASS] detect_venv returns venv path
+  [PASS] detect_venv finds .venv/
+  [PASS] detect_venv returns .venv path
+
+────────────────────────────────────────────────────────────────
+  15 · Dev Workflow — detect_and_run_tests()
+────────────────────────────────────────────────────────────────
+  [PASS] empty dir = None
+  [PASS] pytest.ini → pytest
+  [PASS] test_*.py → pytest
+  [PASS] package.json with test script → npm test
+  [PASS] go.mod → go test ./...
+  [PASS] Cargo.toml → cargo test
+  [PASS] pom.xml → mvn test
+
+────────────────────────────────────────────────────────────────
+  16 · Dev Workflow — create_project()
+────────────────────────────────────────────────────────────────
+  [PASS] flask-app in TEMPLATES
+  [PASS] fastapi-app in TEMPLATES
+  [PASS] react-app in TEMPLATES
+  [PASS] node-api in TEMPLATES
+  [PASS] python-cli in TEMPLATES
+[Aegis] Creating Flask web application in ./myflask/
+  + app.py
+  + requirements.txt
+  + .env
+  $ pip install flask
+
+[Aegis] Project "myflask" created! cd myflask to get started.
+  [PASS] flask-app created ok
+  [PASS] myflask/app.py exists
+  [PASS] myflask/requirements.txt
+  [PASS] app.py has Flask import
+[Aegis] Creating FastAPI REST API in ./myapi/
+  + main.py
+  + requirements.txt
+  $ pip install fastapi uvicorn
+
+[Aegis] Project "myapi" created! cd myapi to get started.
+  [PASS] fastapi-app created ok
+  [PASS] myapi/main.py exists
+  [PASS] main.py has FastAPI
+[Aegis] Creating Python CLI tool with argparse in ./mycli/
+  + main.py
+  + requirements.txt
+
+[Aegis] Project "mycli" created! cd mycli to get started.
+  [PASS] python-cli created ok
+  [PASS] mycli/main.py has argparse
+  [PASS] {name} replaced in main.py
+[Aegis] Directory "myflask" already exists.
+  [PASS] duplicate project name fails
+  [PASS] unknown template fails
+  [PASS] unknown template shows available
+
+────────────────────────────────────────────────────────────────
+  17 · Dev Workflow — SSH Profiles
+────────────────────────────────────────────────────────────────
+[Aegis] SSH profile "prod" saved.
+[Aegis] SSH profile "staging" saved.
+[Aegis] SSH profile "local" saved.
+  [PASS] prod profile saved
+  [PASS] staging profile saved
+  [PASS] prod host correct
+  [PASS] staging port = 2222
+  [PASS] prod user = deploy
+  [PASS] ssh_connect prod returns cmd
+  [PASS] ssh cmd has deploy@192
+  [PASS] ssh cmd starts with ssh
+  [PASS] staging ssh has -p 2222
+[Aegis] No SSH profile "nonexistent".
+  [PASS] ssh_connect unknown = None
+  [PASS] ssh_list shows prod
+  [PASS] ssh_list shows staging
+  [PASS] ssh_list shows local
+
+────────────────────────────────────────────────────────────────
+  18 · Dev Workflow — Git + Docker aliases
+────────────────────────────────────────────────────────────────
+  [PASS] git alias 'gst'  → 'git status'
+  [PASS] git alias 'gp'  → 'git push'
+  [PASS] git alias 'gpl'  → 'git pull'
+  [PASS] git alias 'ga .'  → 'git add .'
+  [PASS] git alias 'gaa'  → 'git add .'
+  [PASS] git alias 'gcm "fix: bug"'  → 'git commit -m "fix: bug"'
+  [PASS] git alias 'gco main'  → 'git checkout main'
+  [PASS] git alias 'gb feature/x'  → 'git branch feature/x'
+  [PASS] git alias 'glog'  → 'git log --oneline --graph --decorate --all'
+  [PASS] git alias 'gd'  → 'git diff'
+  [PASS] git alias 'gds'  → 'git diff --staged'
+  [PASS] unknown git alias = None
+  [PASS] unknown random cmd = None
+  [PASS] docker alias 'dps'  → 'docker ps'
+  [PASS] docker alias 'dpsa'  → 'docker ps -a'
+  [PASS] docker alias 'di'  → 'docker images'
+  [PASS] docker alias 'dlogs mycontainer'  → 'docker logs -f mycontainer'
+  [PASS] docker alias 'dexec mycontainer'  → 'docker exec -it mycontainer sh'
+  [PASS] docker alias 'dstop abc123'  → 'docker stop abc123'
+  [PASS] unknown docker cmd = None
+
+────────────────────────────────────────────────────────────────
+  19 · Integrations — HTTP commands + aliases
+────────────────────────────────────────────────────────────────
+  [PASS] is_http_command GET  → False
+  [PASS] is_http_command POST  → False
+  [PASS] is_http_command PUT  → False
+  [PASS] is_http_command DELETE  → False
+  [PASS] is_http_command PATCH  → False
+  [PASS] is_http_command HEAD  → False
+  [PASS] NOT http_cmd 'git status'  → True
+  [PASS] NOT http_cmd 'get something'  → True
+  [PASS] NOT http_cmd 'GET'  → True
+  [PASS] NOT http_cmd 'GET /local/path'  → True
+  [PASS] NOT http_cmd 'POSTS https://x.com'  → True
+  [PASS] NOT http_cmd 'docker ps'  → True
+  [PASS] gh alias 'prs'  → 'gh pr list'
+  [PASS] gh alias 'issues'  → 'gh issue list'
+  [PASS] gh alias 'prview'  → 'gh pr view'
+  [PASS] gh alias 'prmerge'  → 'gh pr merge'
+  [PASS] gh alias 'ghrepo'  → 'gh repo view --web'
+  [PASS] unknown gh alias = None
+  [PASS] cloud alias 'aws-whoami'  → 'aws sts get-caller-identity'
+  [PASS] cloud alias 'gcp-project'  → 'gcloud config get-value project'
+  [PASS] cloud alias 'az-sub'  → 'az account show --query name -o tsv'
+  [PASS] cloud alias 'k8s-ctx'  → 'kubectl config current-context'
+  [PASS] cloud alias 'k8s-pods'  → 'kubectl get pods --all-namespaces'
+  [PASS] expand_all gst
+  [PASS] expand_all dps
+  [PASS] expand_all prs
+  [PASS] expand_all aws-whoami
+  [PASS] expand_all unknown = None
+
+────────────────────────────────────────────────────────────────
+  20 · AI Features — check_sensitive_data()
+────────────────────────────────────────────────────────────────
+  [PASS] detects 'API key' in command  → 'API key'
+  [PASS] detects 'Bearer token' in command  → 'Bearer token'
+  [PASS] detects 'password' in command  → 'password'
+  [PASS] detects 'secret key' in command  → 'secret key'
+  [PASS] detects 'AWS key' in command  → 'AWS key'
+  [PASS] detects 'Groq API key' in command  → 'Groq API key'
+  [PASS] detects 'OpenAI key' in command  → 'OpenAI key'
+  [PASS] detects 'GitHub token' in command  → 'GitHub token'
+  [PASS] detects 'Bearer token' in command  → 'Bearer token'
+  [PASS] detects 'private key' in command  → 'private key'
+  [PASS] detects 'token' in command  → 'token'
+  [PASS] no sensitive data in 'git status'
+  [PASS] no sensitive data in 'pip install flask'
+  [PASS] no sensitive data in 'ls -la'
+  [PASS] no sensitive data in 'echo hello world'
+  [PASS] no sensitive data in 'python --version'
+  [PASS] no sensitive data in 'docker ps'
+  [PASS] no sensitive data in 'npm install'
+  [PASS] no sensitive data in 'Get-Process'
+  [PASS] no sensitive data in 'dir /s'
+  [PASS] no sensitive data in 'cd ~/projects'
+
+────────────────────────────────────────────────────────────────
+  21 · Prompt Builder — build_prompt()
+────────────────────────────────────────────────────────────────
+  [PASS] build_prompt returns str
+  [PASS] build_prompt non-empty
+  [PASS] build_prompt contains aegis>
+  [PASS] build_prompt has ANSI reset codes
+  [PASS] build_prompt last_exit=1 has fail indicator
+  [PASS] build_prompt custom color applied
+  [PASS] build_prompt has time pattern
+
+────────────────────────────────────────────────────────────────
+  22 · Analytics — record + show
+────────────────────────────────────────────────────────────────
+  [PASS] recorded 8 entries  → 8
+  [PASS] success entries ok=True
+  [PASS] fail entries ok=False
+  [PASS] hour field present
+  [PASS] dur field present
+  [PASS] show_analytics prints total
+  [PASS] show_analytics prints git
+  [PASS] show_analytics prints bad_cmd
+  [PASS] show_analytics prints rate
+  [PASS] show_analytics shows bar chart
+  [PASS] empty analytics no crash
+
+────────────────────────────────────────────────────────────────
+  23 · Learning — cheat sheets + tips
+────────────────────────────────────────────────────────────────
+  [PASS] 'git' in CHEAT_SHEETS
+  [PASS] 'docker' in CHEAT_SHEETS
+  [PASS] 'pip' in CHEAT_SHEETS
+  [PASS] 'python' in CHEAT_SHEETS
+  [PASS] 'npm' in CHEAT_SHEETS
+  [PASS] 'linux' in CHEAT_SHEETS
+  [PASS] 'powershell' in CHEAT_SHEETS
+  [PASS] 'aegis' in CHEAT_SHEETS
+  [PASS] git has entries
+  [PASS] git entries are 2-tuples
+  [PASS] git cmd strings non-empty
+  [PASS] git desc strings non-empty
+  [PASS] docker has entries
+  [PASS] docker entries are 2-tuples
+  [PASS] docker cmd strings non-empty
+  [PASS] docker desc strings non-empty
+  [PASS] pip has entries
+  [PASS] pip entries are 2-tuples
+  [PASS] pip cmd strings non-empty
+  [PASS] pip desc strings non-empty
+  [PASS] python has entries
+  [PASS] python entries are 2-tuples
+  [PASS] python cmd strings non-empty
+  [PASS] python desc strings non-empty
+  [PASS] npm has entries
+  [PASS] npm entries are 2-tuples
+  [PASS] npm cmd strings non-empty
+  [PASS] npm desc strings non-empty
+  [PASS] linux has entries
+  [PASS] linux entries are 2-tuples
+  [PASS] linux cmd strings non-empty
+  [PASS] linux desc strings non-empty
+  [PASS] powershell has entries
+  [PASS] powershell entries are 2-tuples
+  [PASS] powershell cmd strings non-empty
+  [PASS] powershell desc strings non-empty
+  [PASS] aegis has entries
+  [PASS] aegis entries are 2-tuples
+  [PASS] aegis cmd strings non-empty
+  [PASS] aegis desc strings non-empty
+  [PASS] show_cheat('git') prints output
+  [PASS] show_cheat('git') shows topic
+  [PASS] show_cheat('docker') prints output
+  [PASS] show_cheat('docker') shows topic
+  [PASS] show_cheat('pip') prints output
+  [PASS] show_cheat('pip') shows topic
+  [PASS] show_cheat('python') prints output
+  [PASS] show_cheat('python') shows topic
+  [PASS] show_cheat('npm') prints output
+  [PASS] show_cheat('npm') shows topic
+  [PASS] show_cheat('linux') prints output
+  [PASS] show_cheat('linux') shows topic
+  [PASS] show_cheat('powershell') prints output
+  [PASS] show_cheat('powershell') shows topic
+  [PASS] show_cheat('aegis') prints output
+  [PASS] show_cheat('aegis') shows topic
+  [PASS] show_cheat invalid prints available topics
+  [PASS] TIPS non-empty
+  [PASS] each tip is 2-tuple
+  [PASS] each tip key non-empty
+  [PASS] each tip text non-empty
+  [PASS] get_tip returns tuple
+  [PASS] get_tip key is str
+  [PASS] get_tip text is str
+  [PASS] tip rotation: 20 unique tips seen in 20 draws
+  [PASS] show_startup_tip returns key
+  [PASS] show_startup_tip prints something
+
+────────────────────────────────────────────────────────────────
+  24 · Aegis Scripts — .aegis file interpreter
+────────────────────────────────────────────────────────────────
+
+  [REAL EXECUTION] simple.aegis:
+  >> python --version
+Python 3.13.14
+  >> git --version
+git version 2.54.0.windows.1
+  [PASS] simple script ran 2 commands  → 2
+  [PASS] both succeeded  → 2
+  [PASS] echo goes to stdout, not executor  → 0
+  [PASS] echo output captured in stdout
+
+  [REAL EXECUTION] comments.aegis:
+  >> python --version
+Python 3.13.14
+  >> pip --version
+pip 26.1.2 from C:\Users\Tanish-Poddar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pip (python 3.13)
+
+  [PASS] comments/blanks: only 2 cmds ran  → 2
+
+  [REAL EXECUTION] vars.aegis:
+  $PKG = colorama
+  >> pip show colorama
+Name: colorama
+Version: 0.4.6
+Summary: Cross-platform colored terminal text.
+Home-page: https://github.com/tartley/colorama
+Author: 
+Author-email: Jonathan Hartley <tartley@tartley.com>
+License: 
+Location: C:\Users\Tanish-Poddar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages
+Requires: 
+Required-by: build, click, ipython, pylint, pytest, tqdm
+  [PASS] var script ran 1 real cmd  → 1
+  >> git --version
+  [PASS] if true: condition ran
+  [PASS] if true: body ran
+  [PASS] if true: else did NOT run
+  >> pip --version
+  [PASS] if false: body did NOT run
+  [PASS] if false: else ran
+repeat_test
+repeat_test
+repeat_test
+  [FAIL] repeat 3 runs cmd 3 times   expected=3  got=0
+  [PASS] nonexistent script returns False  → False
+
+────────────────────────────────────────────────────────────────
+  25 · CommandExecutor — real command execution (full output)
+────────────────────────────────────────────────────────────────
+
+────────────────────────────────────────────────────────────────
+COMMAND : python --version
+────────────────────────────────────────────────────────────────
+Python 3.13.14
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : python -c "import sys; print(sys.executable)"
+────────────────────────────────────────────────────────────────
+C:\Users\Tanish-Poddar\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\python.exe
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : python -c "print(2 + 2)"
+────────────────────────────────────────────────────────────────
+4
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : pip --version
+────────────────────────────────────────────────────────────────
+pip 26.1.2 from C:\Users\Tanish-Poddar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\pip (python 3.13)
+
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : pip list
+────────────────────────────────────────────────────────────────
+Package                       Version
+----------------------------- -----------
+absl-py                       2.4.0
+affine                        2.4.0
+aiofiles                      25.1.0
+aiohappyeyeballs              2.6.1
+aiohttp                       3.13.3
+aiosignal                     1.4.0
+alembic                       1.17.1
+altair                        5.5.0
+altgraph                      0.17.4
+aniso8601                     10.0.1
+annotated-doc                 0.0.4
+annotated-types               0.7.0
+anthropic                     0.39.0
+anyio                         4.13.0
+argon2-cffi                   25.1.0
+argon2-cffi-bindings          25.1.0
+arrow                         1.4.0
+asgiref                       3.8.1
+astroid                       4.0.3
+asttokens                     3.0.1
+astunparse                    1.6.3
+async-lru                     2.1.0
+attrs                         25.4.0
+autopep8                      2.3.2
+babel                         2.17.0
+bcrypt                        4.1.2
+beautifulsoup4                4.14.2
+bidict                        0.23.1
+black                         24.1.1
+bleach                        6.3.0
+blinker                       1.9.0
+branca                        0.8.2
+bs4                           0.0.2
+build                         1.3.0
+cachetools                    6.2.1
+Cartopy                       0.25.0
+certifi                       2026.1.4
+cffi                          2.0.0
+charset-normalizer            3.4.4
+click                         8.1.7
+click-plugins                 1.1.1.2
+cligj                         0.7.2
+cmdstanpy                     1.3.0
+colorama                      0.4.6
+comm                          0.2.3
+contourpy                     1.3.3
+coverage                      7.13.1
+cryptography                  41.0.7
+cycler                        0.12.1
+debugpy                       1.8.19
+decorator                     5.2.1
+defusedxml                    0.7.1
+Deprecated                    1.3.1
+deprecation                   2.1.0
+dill                          0.4.0
+distro                        1.9.0
+Django                        5.2.3
+django-appconf                1.2.0
+django-auditlog               2.3.0
+django-axes                   6.1.1
+django_compressor             4.6.0
+django-cors-headers           4.7.0
+django-crispy-forms           2.4
+djangorestframework           3.16.0
+djangorestframework-simplejwt 5.3.1
+dnspython                     2.8.0
+docstring_parser              0.17.0
+docutils                      0.22.3
+duckdb                        1.4.3
+earthengine-api               1.7.10
+email-validator               2.3.0
+et_xmlfile                    2.0.0
+executing                     2.2.1
+faiss-cpu                     1.12.0
+fastapi                       0.135.3
+fastjsonschema                2.21.2
+filelock                      3.20.0
+fiona                         1.10.1
+flake8                        7.3.0
+Flask                         3.0.0
+Flask-Bcrypt                  1.0.1
+Flask-Cors                    4.0.0
+Flask-JWT-Extended            4.6.0
+Flask-Limiter                 3.5.0
+Flask-Login                   0.6.3
+Flask-Mail                    0.9.1
+Flask-Migrate                 4.0.5
+Flask-MySQLdb                 2.0.0
+flask-restx                   1.3.2
+Flask-SQLAlchemy              3.1.1
+Flask-WTF                     1.2.1
+flatbuffers                   25.12.19
+folium                        0.20.0
+fonttools                     4.60.1
+fpdf                          1.7.2
+fqdn                          1.5.1
+frozenlist                    1.8.0
+fsspec                        2025.10.0
+fuzzywuzzy                    0.18.0
+gast                          0.7.0
+gdown                         5.2.0
+geopandas                     1.1.2
+gitdb                         4.0.12
+GitPython                     3.1.45
+google-ai-generativelanguage  0.9.0
+google-api-core               2.28.1
+google-api-python-client      2.187.0
+google-auth                   2.48.0
+google-auth-httplib2          0.2.1
+google-auth-oauthlib          1.2.4
+google-cloud-core             2.5.0
+google-cloud-storage          3.8.0
+google-crc32c                 1.8.0
+google-generativeai           0.8.5
+google-pasta                  0.2.0
+google-resumable-media        2.8.0
+googleapis-common-protos      1.72.0
+greenlet                      3.2.4
+groq                          0.33.0
+grpcio                        1.76.0
+grpcio-status                 1.76.0
+gspread                       6.2.1
+gunicorn                      21.2.0
+h11                           0.16.0
+h2                            4.3.0
+h5py                          3.14.0
+hf-xet                        1.2.0
+holidays                      0.88
+hpack                         4.1.0
+httpcore                      1.0.9
+httplib2                      0.31.0
+httptools                     0.7.1
+httpx                         0.26.0
+huggingface_hub               1.1.2
+hyperframe                    6.1.0
+hypothesis                    6.98.0
+id                            1.5.0
+idna                          3.11
+ImageIO                       2.37.2
+importlib_resources           6.5.2
+iniconfig                     2.3.0
+invoke                        2.2.1
+ipykernel                     7.1.0
+ipython                       9.9.0
+ipython_pygments_lexers       1.1.1
+ipywidgets                    8.1.8
+isoduration                   20.11.0
+isort                         7.0.0
+itsdangerous                  2.2.0
+jaraco.classes                3.4.0
+jaraco.context                6.0.1
+jaraco.functools              4.3.0
+jedi                          0.19.2
+Jinja2                        3.1.6
+jiter                         0.12.0
+joblib                        1.5.2
+json5                         0.13.0
+jsonpatch                     1.33
+jsonpointer                   3.0.0
+jsonschema                    4.25.1
+jsonschema-specifications     2025.9.1
+jupyter                       1.1.1
+jupyter_client                8.8.0
+jupyter-console               6.6.3
+jupyter_core                  5.9.1
+jupyter-events                0.12.0
+jupyter-lsp                   2.3.0
+jupyter_server                2.17.0
+jupyter_server_terminals      0.5.4
+jupyterlab                    4.5.2
+jupyterlab_pygments           0.3.0
+jupyterlab_server             2.28.0
+jupyterlab_widgets            3.0.16
+keras                         3.14.0
+keyring                       25.6.0
+kiwisolver                    1.4.9
+langchain                     1.0.5
+langchain-core                1.0.4
+langchain-openai              1.0.2
+langchain-text-splitters      1.0.0
+langgraph                     1.0.3
+langgraph-checkpoint          3.0.1
+langgraph-prebuilt            1.0.2
+langgraph-sdk                 0.2.9
+langsmith                     0.4.42
+lark                          1.3.1
+lazy_loader                   0.4
+Levenshtein                   0.27.3
+libclang                      18.1.1
+lightgbm                      4.6.0
+limits                        5.6.0
+lxml                          6.1.0
+Mako                          1.3.10
+markdown-it-py                4.0.0
+MarkupSafe                    3.0.3
+matplotlib                    3.10.7
+matplotlib-inline             0.2.1
+mccabe                        0.7.0
+mdurl                         0.1.2
+memory-profiler               0.61.0
+mistune                       3.2.0
+ml_dtypes                     0.5.4
+mmh3                          5.2.0
+more-itertools                10.8.0
+mpmath                        1.3.0
+multidict                     6.7.1
+mypy_extensions               1.1.0
+mysql-connector-python        8.2.0
+mysqlclient                   2.2.8
+namex                         0.1.0
+narwhals                      2.11.0
+nbclient                      0.10.4
+nbconvert                     7.16.6
+nbformat                      5.10.4
+nest-asyncio                  1.6.0
+networkx                      3.5
+nh3                           0.3.2
+nltk                          3.9.2
+notebook                      7.5.2
+notebook_shim                 0.2.4
+numpy                         2.3.4
+oauthlib                      3.3.1
+openai                        2.7.2
+opencv-python                 4.13.0.92
+openpyxl                      3.1.5
+opt_einsum                    3.4.0
+optree                        0.19.0
+ordered-set                   4.1.0
+orjson                        3.11.4
+ormsgpack                     1.12.0
+outcome                       1.3.0.post0
+packaging                     25.0
+pandas                        2.3.3
+pandocfilters                 1.5.1
+paramiko                      4.0.0
+parso                         0.8.5
+pathspec                      1.0.2
+pdfkit                        1.0.0
+pefile                        2024.8.26
+pillow                        12.0.0
+pip                           26.1.2
+platformdirs                  4.5.1
+plotly                        6.5.1
+pluggy                        1.6.0
+postgrest                     1.1.1
+prometheus_client             0.24.1
+prompt_toolkit                3.0.52
+propcache                     0.4.1
+prophet                       1.2.1
+proto-plus                    1.26.1
+protobuf                      6.33.6
+psutil                        7.1.3
+psycopg2-binary               2.9.11
+PuLP                          3.3.0
+pure_eval                     0.2.3
+pyarrow                       21.0.0
+pyasn1                        0.6.1
+pyasn1_modules                0.4.2
+pycodestyle                   2.14.0
+pycparser                     2.23
+pydantic                      2.12.5
+pydantic_core                 2.41.5
+pydeck                        0.9.1
+pyfiglet                      1.0.4
+pyflakes                      3.4.0
+Pygments                      2.19.2
+pyiceberg                     0.11.0
+pyinstaller                   6.16.0
+pyinstaller-hooks-contrib     2025.9
+PyJWT                         2.10.1
+pylint                        4.0.4
+pymongo                       4.15.4
+PyMySQL                       1.1.0
+PyNaCl                        1.6.2
+pyogrio                       0.12.1
+pyparsing                     3.2.5
+PyPDF2                        3.0.1
+pyproj                        3.7.2
+pyproject_hooks               1.2.0
+pypugjs                       5.9.12
+pyroaring                     1.0.3
+pyshp                         3.0.3
+PySocks                       1.7.1
+pytest                        7.4.4
+pytest-asyncio                0.23.3
+pytest-cov                    7.0.0
+pytest-mock                   3.15.1
+python-dateutil               2.9.0.post0
+python-decouple               3.8
+python-dotenv                 1.0.0
+python-engineio               4.12.3
+python-json-logger            4.0.0
+python-Levenshtein            0.27.3
+python-multipart              0.0.21
+python-pptx                   1.0.2
+python-socketio               5.14.3
+python-telegram-bot           22.6
+pytokens                      0.3.0
+pytz                          2023.3
+pywin32                       311
+pywin32-ctypes                0.2.3
+pywinpty                      3.0.2
+PyYAML                        6.0.3
+pyzmq                         27.1.0
+RapidFuzz                     3.14.3
+rasterio                      1.4.3
+rcssmin                       1.2.2
+readme_renderer               44.0
+realtime                      2.7.0
+redis                         5.0.1
+referencing                   0.37.0
+regex                         2025.11.3
+requests                      2.31.0
+requests-oauthlib             2.0.0
+requests-toolbelt             1.0.0
+rfc3339-validator             0.1.4
+rfc3986                       2.0.0
+rfc3986-validator             0.1.1
+rfc3987-syntax                1.1.0
+rich                          13.9.4
+rjsmin                        1.2.5
+rpds-py                       0.28.0
+rsa                           4.9.1
+safetensors                   0.6.2
+schedule                      1.2.0
+scikit-image                  0.26.0
+scikit-learn                  1.7.2
+scipy                         1.16.3
+seaborn                       0.13.2
+selenium                      4.43.0
+Send2Trash                    2.1.0
+sentence-transformers         5.1.2
+setuptools                    80.9.0
+shapely                       2.1.2
+shellingham                   1.5.4
+simple-websocket              1.1.0
+six                           1.17.0
+smmap                         5.0.2
+sniffio                       1.3.1
+sortedcontainers              2.4.0
+soupsieve                     2.8
+SQLAlchemy                    2.0.49
+sqlparse                      0.5.3
+stack-data                    0.6.3
+stanio                        0.5.1
+starlette                     1.0.0
+storage3                      0.12.1
+streamlit                     1.51.0
+streamlit-folium              0.27.0
+StrEnum                       0.4.15
+strictyaml                    1.7.3
+supabase                      2.18.1
+supabase_auth                 2.12.3
+supabase_functions            0.10.1
+sympy                         1.14.0
+tenacity                      9.1.2
+tensorflow                    2.21.0
+termcolor                     3.3.0
+terminado                     0.18.1
+tflearn                       0.5.0
+threadpoolctl                 3.6.0
+tifffile                      2026.1.14
+tiktoken                      0.12.0
+tinycss2                      1.4.0
+tokenizers                    0.22.1
+toml                          0.10.2
+tomlkit                       0.13.3
+torch                         2.9.0
+tornado                       6.5.2
+tqdm                          4.67.1
+traitlets                     5.14.3
+transformers                  4.57.1
+trio                          0.33.0
+trio-websocket                0.12.2
+twine                         6.2.0
+typer-slim                    0.20.0
+typing_extensions             4.15.0
+typing-inspection             0.4.2
+tzdata                        2025.2
+uri-template                  1.3.0
+uritemplate                   4.2.0
+urllib3                       2.6.3
+uvicorn                       0.43.0
+watchdog                      6.0.0
+watchfiles                    1.1.1
+wcwidth                       0.2.14
+webcolors                     25.10.0
+webdriver-manager             4.0.2
+webencodings                  0.5.1
+websocket-client              1.9.0
+websockets                    15.0.1
+Werkzeug                      3.0.1
+wheel                         0.45.1
+whitenoise                    6.6.0
+widgetsnbextension            4.0.15
+winshell                      0.6
+wrapt                         2.0.1
+wsproto                       1.3.1
+WTForms                       3.1.1
+xlsxwriter                    3.2.9
+xxhash                        3.6.0
+xyzservices                   2025.11.0
+yarl                          1.22.0
+yt-dlp                        2026.3.17
+zstandard                     0.25.0
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : pip show colorama
+────────────────────────────────────────────────────────────────
+Name: colorama
+Version: 0.4.6
+Summary: Cross-platform colored terminal text.
+Home-page: https://github.com/tartley/colorama
+Author: 
+Author-email: Jonathan Hartley <tartley@tartley.com>
+License: 
+Location: C:\Users\Tanish-Poddar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages
+Requires: 
+Required-by: build, click, ipython, pylint, pytest, tqdm
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : pip show prompt_toolkit
+────────────────────────────────────────────────────────────────
+Name: prompt_toolkit
+Version: 3.0.52
+Summary: Library for building powerful interactive command lines in Python
+Home-page: https://github.com/prompt-toolkit/python-prompt-toolkit
+Author: Jonathan Slenders
+Author-email: 
+License: 
+Location: C:\Users\Tanish-Poddar\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages
+Requires: wcwidth
+Required-by: ipython, jupyter-console
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : echo hello from aegis
+────────────────────────────────────────────────────────────────
+hello from aegis
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : pwd
+────────────────────────────────────────────────────────────────
+D:\GitHub\aegis-shell
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : ls
+────────────────────────────────────────────────────────────────
+ Volume in drive D is New Volume
+ Volume Serial Number is E2E6-99A7
+
+ Directory of D:\GitHub\aegis-shell
+
+15-06-2026  09:57 PM    <DIR>          .
+10-06-2026  02:43 AM    <DIR>          ..
+15-06-2026  08:47 PM    <DIR>          .claude
+08-06-2025  10:25 AM             1,333 .gitignore
+15-06-2026  09:08 PM            35,620 aegis_shell.py
+15-06-2026  12:59 AM    <DIR>          assets
+19-01-2026  03:20 AM             6,972 build_installer.py
+15-06-2026  12:37 AM    <DIR>          config
+08-04-2025  10:52 AM             1,389 config_loader.py
+15-06-2026  08:58 PM    <DIR>          features
+15-06-2026  08:43 PM             9,919 install.ps1
+15-06-2026  08:42 PM             7,440 install.sh
+15-06-2026  08:48 PM             9,137 installer.py
+08-06-2025  10:09 AM             1,007 LICENSE
+14-06-2026  11:33 PM    <DIR>          llm
+15-06-2026  08:43 PM               326 MANIFEST.in
+15-06-2026  08:43 PM             1,736 pyproject.toml
+19-01-2026  03:20 AM             6,194 README.md
+14-06-2026  11:42 PM               159 requirements.txt
+08-06-2025  10:24 AM             4,628 setup.py
+15-06-2026  09:57 PM            73,552 test_aegis.py
+15-06-2026  09:29 PM    <DIR>          utils
+15-06-2026  09:08 PM    <DIR>          __pycache__
+              14 File(s)        159,412 bytes
+               9 Dir(s)  13,919,383,552 bytes free
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : ls -la
+────────────────────────────────────────────────────────────────
+ Volume in drive D is New Volume
+ Volume Serial Number is E2E6-99A7
+
+ Directory of D:\GitHub\aegis-shell
+
+File Not Found
+SUCCESS : False
+ERROR   : File Not Found
+
+────────────────────────────────────────────────────────────────
+COMMAND : dir
+────────────────────────────────────────────────────────────────
+ Volume in drive D is New Volume
+ Volume Serial Number is E2E6-99A7
+
+ Directory of D:\GitHub\aegis-shell
+
+15-06-2026  09:57 PM    <DIR>          .
+10-06-2026  02:43 AM    <DIR>          ..
+15-06-2026  08:47 PM    <DIR>          .claude
+08-06-2025  10:25 AM             1,333 .gitignore
+15-06-2026  09:08 PM            35,620 aegis_shell.py
+15-06-2026  12:59 AM    <DIR>          assets
+19-01-2026  03:20 AM             6,972 build_installer.py
+15-06-2026  12:37 AM    <DIR>          config
+08-04-2025  10:52 AM             1,389 config_loader.py
+15-06-2026  08:58 PM    <DIR>          features
+15-06-2026  08:43 PM             9,919 install.ps1
+15-06-2026  08:42 PM             7,440 install.sh
+15-06-2026  08:48 PM             9,137 installer.py
+08-06-2025  10:09 AM             1,007 LICENSE
+14-06-2026  11:33 PM    <DIR>          llm
+15-06-2026  08:43 PM               326 MANIFEST.in
+15-06-2026  08:43 PM             1,736 pyproject.toml
+19-01-2026  03:20 AM             6,194 README.md
+14-06-2026  11:42 PM               159 requirements.txt
+08-06-2025  10:24 AM             4,628 setup.py
+15-06-2026  09:57 PM            73,552 test_aegis.py
+15-06-2026  09:29 PM    <DIR>          utils
+15-06-2026  09:08 PM    <DIR>          __pycache__
+              14 File(s)        159,412 bytes
+               9 Dir(s)  13,919,383,552 bytes free
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : ver
+────────────────────────────────────────────────────────────────
+
+Microsoft Windows [Version 10.0.26220.8680]
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : whoami
+────────────────────────────────────────────────────────────────
+tanish\tanish-poddar
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : hostname
+────────────────────────────────────────────────────────────────
+Tanish
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : touch _aegis_test_file.txt
+────────────────────────────────────────────────────────────────
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : echo aegis_test_content > _aegis_test_file.txt
+────────────────────────────────────────────────────────────────
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : cat _aegis_test_file.txt
+────────────────────────────────────────────────────────────────
+aegis_test_content 
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : type _aegis_test_file.txt
+────────────────────────────────────────────────────────────────
+aegis_test_content 
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : mkdir _aegis_test_dir
+────────────────────────────────────────────────────────────────
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : rm _aegis_test_file.txt
+────────────────────────────────────────────────────────────────
+[Aegis] Warning: "rm" can be destructive.
+  Command: rm _aegis_test_file.txt
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : rmdir _aegis_test_dir
+────────────────────────────────────────────────────────────────
+[Aegis] Warning: "rmdir" can be destructive.
+  Command: rmdir _aegis_test_dir
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : git --version
+────────────────────────────────────────────────────────────────
+git version 2.54.0.windows.1
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : git status
+────────────────────────────────────────────────────────────────
+On branch main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+	modified:   aegis_shell.py
+	deleted:    assets/icon.icns
+	deleted:    build_mac.sh
+	deleted:    commands/command_handler.py
+	deleted:    commands/faq.py
+	modified:   config/commands_mapping.json
+	modified:   features/command_detection.py
+	deleted:    features/command_executor.py
+	deleted:    features/config_manager.py
+	deleted:    features/dev_tools.py
+	modified:   features/env_detector.py
+	deleted:    features/error_handler.py
+	modified:   features/package_manager.py
+	deleted:    features/platform.py
+	deleted:    features/system_monitor.py
+	deleted:    features/testing.py
+	deleted:    features/ui_enhancements.py
+	modified:   installer.py
+	modified:   llm/llm_handler.py
+	modified:   requirements.txt
+	deleted:    resources/ascii_art.txt
+	modified:   utils/command_executor.py
+	deleted:    utils/gui_download_support.py
+	deleted:    utils/permissions.py
+	modified:   utils/security_manager.py
+	deleted:    utils/system_monitor.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	MANIFEST.in
+	build_installer.py
+	features/aegis_scripts.py
+	features/ai_features.py
+	features/analytics.py
+	features/audit_log.py
+	features/credential_manager.py
+	features/dev_workflow.py
+	features/hooks.py
+	features/integrations.py
+	features/learning.py
+	features/macros.py
+	features/prompt_builder.py
+	features/session_recorder.py
+	features/session_vars.py
+	features/system_dashboard.py
+	features/themes.py
+	install.ps1
+	install.sh
+	pyproject.toml
+	test_aegis.py
+	utils/router.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : git log --oneline -5
+────────────────────────────────────────────────────────────────
+e2f0961 Update README.md
+bb95d05 modified readme.md file
+79ed6aa Merge branch 'main' of https://github.com/tanishpoddar/aegis-shell
+a0b32ed added files
+f661c92 Update README.md
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : git branch
+────────────────────────────────────────────────────────────────
+* main
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : git diff --stat
+────────────────────────────────────────────────────────────────
+ README.md                     |   6 +-
+ aegis_shell.py                | 905 +++++++++++++++++++++++++++++++++++-------
+ assets/icon.icns              | Bin 196258 -> 0 bytes
+ build_mac.sh                  |  35 --
+ commands/command_handler.py   | 290 --------------
+ commands/faq.py               |  46 ---
+ config/commands_mapping.json  |   8 +
+ features/command_detection.py |  17 +-
+ features/command_executor.py  | 213 ----------
+ features/config_manager.py    | 446 ---------------------
+ features/dev_tools.py         | 497 -----------------------
+ features/env_detector.py      | 337 +++++-----------
+ features/error_handler.py     | 566 --------------------------
+ features/package_manager.py   |   9 +-
+ features/platform.py          | 304 --------------
+ features/system_monitor.py    | 391 ------------------
+ features/testing.py           | 378 ------------------
+ features/ui_enhancements.py   | 491 -----------------------
+ installer.py                  | 483 +++++++++++-----------
+ llm/llm_handler.py            | 199 ++++++----
+ requirements.txt              |  14 +-
+ resources/ascii_art.txt       |  10 -
+ utils/command_executor.py     | 463 ++++++++-------------
+ utils/gui_download_support.py | 110 -----
+ utils/permissions.py          |   9 -
+ utils/security_manager.py     |  60 ++-
+ utils/system_monitor.py       | 211 ----------
+ 27 files changed, 1434 insertions(+), 5064 deletions(-)
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : Get-Date
+────────────────────────────────────────────────────────────────
+
+15 June 2026 09:58:56 PM
+
+
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : Get-Location
+────────────────────────────────────────────────────────────────
+
+Path                 
+----                 
+D:\GitHub\aegis-shell
+
+
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : Write-Host "aegis powershell test"
+────────────────────────────────────────────────────────────────
+aegis powershell test
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : Get-Process | Select-Object -First 5 Name, CPU
+────────────────────────────────────────────────────────────────
+
+Name           CPU     
+----           ---     
+adb                    
+AggregatorHost         
+amdfendrsr             
+AMDRSServ      77.6875 
+AMDRSSrcExt    19.28125
+
+
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : node --version
+────────────────────────────────────────────────────────────────
+v26.3.0
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : npm --version
+────────────────────────────────────────────────────────────────
+SUCCESS : False
+ERROR   : Executor not found: [WinError 2] The system cannot find the file specified
+
+────────────────────────────────────────────────────────────────
+COMMAND : node -e "console.log(1+1)"
+────────────────────────────────────────────────────────────────
+2
+SUCCESS : True
+
+────────────────────────────────────────────────────────────────
+COMMAND : python app.py
+────────────────────────────────────────────────────────────────
+C:\Users\Tanish-Poddar\AppData\Local\Microsoft\WindowsApps\python.exe: can't open file 'D:\\GitHub\\aegis-shell\\app.py': [Errno 2] No such file or directory
+SUCCESS : False
+ERROR   : C:\Users\Tanish-Poddar\AppData\Local\Microsoft\WindowsApps\python.exe: can't open file 'D:\\GitHub\\aegis-shell\\app.py': [Errno 2] No such file or directory
+
+────────────────────────────────────────────────────────────────
+COMMAND : node server.js
+────────────────────────────────────────────────────────────────
+node:internal/modules/cjs/loader:1522
+  throw err;
+  ^
+
+Error: Cannot find module 'D:\GitHub\aegis-shell\server.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1519:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1073:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1097:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1124:12)
+    at Module._load (node:internal/modules/cjs/loader:1296:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v26.3.0
+SUCCESS : False
+ERROR   : node:internal/modules/cjs/loader:1522
+  throw err;
+  ^
+
+Error: Cannot find module 'D:\GitHub\aegis-shell\server.js'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1519:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1073:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1097:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1124:12)
+    at Module._load (node:internal/modules/cjs/loader:1296:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v26.3.0
+
+────────────────────────────────────────────────────────────────
+COMMAND : _fake_command_that_does_not_exist_xyz
+────────────────────────────────────────────────────────────────
+SUCCESS : False
+ERROR   : '_fake_command_that_does_not_exist_xyz' not found and could not be installed.
+
+────────────────────────────────────────────────────────────────
+TOTAL   : 37 commands   SUCCESS RATE: 86.5%
+────────────────────────────────────────────────────────────────
+  [PASS] success_rate is float
+  [PASS] success_rate in [0,100]  → 86.48648648648648
+  [PASS] total_count > 0
+
+────────────────────────────────────────────────────────────────
+  26 · LLM — classify_and_translate()  [Groq API]
+────────────────────────────────────────────────────────────────
+
+  Should be type=command:
+  [PASS] command 'git status'  → "t=command, cmds=['git status']"
+  [PASS] command 'pip install flask'  → "t=command, cmds=['pip install flask']"
+  [PASS] command 'ls -la'  → "t=command, cmds=['ls -la']"
+  [PASS] command 'Get-Process'  → "t=command, cmds=['Get-Process']"
+  [PASS] command 'dir /s'  → "t=command, cmds=['dir /s']"
+  [PASS] command 'docker ps'  → "t=command, cmds=['docker ps']"
+  [PASS] command 'npm install'  → "t=command, cmds=['npm install']"
+  [PASS] command 'python --version'  → "t=command, cmds=['python --version']"
+  [PASS] command 'git log --oneline -10'  → "t=command, cmds=['git log --oneline -10']"
+  [PASS] command 'echo hello world'  → "t=command, cmds=['echo hello world']"
+  [PASS] command 'node --version'  → "t=command, cmds=['node --version']"
+  [PASS] command 'cargo --version'  → "t=command, cmds=['cargo --version']"
+  [PASS] command 'kubectl get pods'  → "t=command, cmds=['kubectl get pods']"
+  [PASS] command 'terraform --version'  → "t=command, cmds=['terraform --version']"
+  [PASS] command 'git diff --staged'  → "t=command, cmds=['git diff --staged']"
+  [PASS] command 'pip list'  → "t=command, cmds=['pip list']"
+  [PASS] command 'docker images'  → "t=command, cmds=['docker images']"
+  [PASS] command 'npm run build'  → "t=command, cmds=['npm run build']"
+
+  Should produce real commands:
+  [PASS] cmds 'show me all running processes'  → ['Get-Process']
+  [PASS] cmds 'list files in current directory'  → ['dir']
+  [PASS] cmds 'what is my IP address'  → ['ipconfig']
+  [PASS] cmds 'show disk usage'  → ['df -h']
+  [PASS] cmds 'clear the terminal'  → ['cls']
+  [PASS] cmds 'show python version'  → ['python --version']
+  [PASS] cmds 'find all .py files'  → ['dir *.py', 'findstr /m *.py']
+  [PASS] cmds 'create a new folder called output'  → ['mkdir output']
+  [PASS] cmds 'show environment variables'  → ['printenv', 'env']
+  [PASS] cmds 'kill process with PID 1234'  → ['taskkill /pid 1234']
+  [PASS] cmds 'compress the logs folder into a zip'  → ['powershell Compress-Archive -Path C:\\logs -DestinationPath C:\\logs.zip']
+  [PASS] cmds 'show top 5 CPU-consuming processes'  → ['Get-Process | Sort-Object -Property CPU -Descending | Select-Object -First 5']
+  [PASS] cmds 'list all installed python packages'  → ['pip list']
+  [PASS] cmds 'show network interfaces'  → ['ipconfig']
+  [PASS] cmds 'check if port 8080 is open'  → ['netstat -an | findstr 8080']
+  [PASS] cmds 'show current git branch'  → ['git branch --show-current']
+  [PASS] cmds 'show last 10 git commits'  → ['git log -n 10']
+  [PASS] cmds 'check if docker is running'  → ['docker ps', 'Get-Service Docker']
+  [PASS] cmds 'show directory sizes in current folder'  → ['du -h']
+  [PASS] cmds 'list all services running on Windows'  → ['Get-Service']
+
+  Edge cases (info only):
+  'hello'  type='nl'  cmds=[]
+  'please run git status'  type='command'  cmds=['git status']
+  'install tensorflow using pip'  type='command'  cmds=['pip install tensorflow']
+  'what does rm -rf do'  type='nl'  cmds=['rm -rf']
+  "git commit -m 'fix: tests'"  type='command'  cmds=["git commit -m 'fix: tests'"]
+  'python'  type='command'  cmds=['python']
+  'exit'  type='command'  cmds=['exit']
+  'explain git rebase'  type='nl'  cmds=['git rebase -h']
+  'set up a flask project'  type='nl'  cmds=['mkdir myproject', 'cd myproject', 'python -m venv venv', 'venv\\Scripts\\activate', 'pip install flask']
+
+────────────────────────────────────────────────────────────────
+  27 · LLM — handle_unknown_command()  [Groq API]
+────────────────────────────────────────────────────────────────
+[Aegis] 'htop' not found — asking AI...
+  [PASS] 'htop' → explanation + install_cmd  → 'exp=True, inst=True'
+    htop: winget install Git.Git or choco install htop
+[Aegis] 'neovim' not found — asking AI...
+  [PASS] 'neovim' → explanation + install_cmd  → 'exp=True, inst=True'
+    neovim: winget install Neovim.Neovim
+[Aegis] 'kubectl' not found — asking AI...
+  [PASS] 'kubectl' → explanation + install_cmd  → 'exp=True, inst=True'
+    kubectl: winget install Docker.DockerDesktop
+[Aegis] 'ffmpeg' not found — asking AI...
+  [PASS] 'ffmpeg' → explanation + install_cmd  → 'exp=True, inst=True'
+    ffmpeg: winget install FFmpeg.FFmpeg
+[Aegis] 'terraform' not found — asking AI...
+  [PASS] 'terraform' → explanation + install_cmd  → 'exp=True, inst=True'
+    terraform: winget install HashiCorp.Terraform
+[Aegis] 'exa' not found — asking AI...
+  [PASS] 'exa' → explanation + install_cmd  → 'exp=True, inst=True'
+    exa: winget install exa/exa
+[Aegis] 'bat' not found — asking AI...
+  [PASS] 'bat' → explanation + install_cmd  → 'exp=True, inst=True'
+    bat: winget install Git.Git
+[Aegis] 'ripgrep' not found — asking AI...
+  [PASS] 'ripgrep' → explanation + install_cmd  → 'exp=True, inst=True'
+    ripgrep: winget install Ripgrep.Ripgrep
+[Aegis] 'fd' not found — asking AI...
+  [PASS] 'fd' → explanation + install_cmd  → 'exp=True, inst=True'
+    fd: winget install fd-find.fd
+[Aegis] 'jq' not found — asking AI...
+  [PASS] 'jq' → explanation + install_cmd  → 'exp=True, inst=True'
+    jq: winget install Microsoft.jq
+
+────────────────────────────────────────────────────────────────
+  28 · AI Features — explain / plan / diagnose  [Groq API]
+────────────────────────────────────────────────────────────────
+  explain_command:
+  [PASS] explain 'git rebase -i HEAD~3'  → 'This command starts an interactive rebase of the last 3 commits. The "git rebase" part initiates the rebase process, while the "-i" flag makes it interactive, allowing you to edit the commits. The "HEAD~3" argument specifies the range of commits to rebase, starting from the current commit and going back 3 commits. This allows you to modify, squash, or reorder the last 3 commits.'
+    → This command starts an interactive rebase of the last 3 commits. The "git rebase...
+  [PASS] explain 'docker run -d -p 80:8080 --name web nginx'  → 'This command runs a Docker container in detached mode (-d) with the name "web" (--name web) using the nginx image. The -p flag maps port 80 on the host machine to port 8080 inside the container, allowing external access to the container\'s web server. The nginx at the end specifies the Docker image to use for the container.'
+    → This command runs a Docker container in detached mode (-d) with the name "web" (...
+  [PASS] explain 'find . -name "*.py" -exec grep -l "import" {}'  → 'This command searches for files with the ".py" extension in the current directory and its subdirectories. The `-name "*.py"` flag specifies the file name pattern, and `-exec` runs the `grep` command on each matching file, searching for the string "import". The `{}` is a placeholder for the file name, and `\\;` marks the end of the command to be executed. The `-l` flag with `grep` lists only the file names that contain the specified string.'
+    → This command searches for files with the ".py" extension in the current director...
+  [PASS] explain 'pip install -r requirements.txt --upgrade'  → 'This command installs Python packages using pip. The `-r` flag specifies that the list of packages to install is in a file, in this case `requirements.txt`. The `--upgrade` flag ensures that all packages are updated to their latest versions. The `requirements.txt` file contains a list of packages to be installed, one per line, often generated by another pip command.'
+    → This command installs Python packages using pip. The `-r` flag specifies that th...
+  [PASS] explain 'Get-Process | Sort-Object CPU -Descending | S'  → 'This command retrieves a list of running processes, sorts them by CPU usage in descending order, and then selects the top 5 processes using the most CPU. The Get-Process command retrieves the list of processes, while the Sort-Object command sorts them by the CPU property. The -Descending flag sorts the processes in descending order, and the Select-Object command with the -First 5 argument selects the top 5 processes from the sorted list. This effectively shows the 5 processes currently using the most CPU.'
+    → This command retrieves a list of running processes, sorts them by CPU usage in d...
+
+  diagnose_error:
+  [PASS] diagnose 'pip install unknownxyz999'  → 'The error indicates that the package \'unknownxyz999\' does not exist on the Python Package Index (PyPI) or is not available for the current Python version.\nFIX: pip install --upgrade pip && pip search unknownxyz999 || echo "Package not found"'
+    → The error indicates that the package 'unknownxyz999' does not exist on the Pytho
+  [PASS] diagnose 'node nonexistent.js'  → "The error indicates that the Node.js interpreter is unable to locate the 'nonexistent.js' file, likely due to it not existing in the current working directory or the specified path.\nFIX: node existing_file.js || npm init -y && touch existing_file.js && node existing_file.js"
+    → The error indicates that the Node.js interpreter is unable to locate the 'nonexi
+  [PASS] diagnose 'git push origin main'  → 'The error message indicates a failure to push some refs, which could be due to a variety of reasons such as local branch being behind the remote branch, permission issues, or conflicts.\nFIX: git pull origin main --allow-unrelated-histories && git push origin main'
+    → The error message indicates a failure to push some refs, which could be due to a
+
+  plan_task:
+  [PASS] plan 'set up a Python virtual environment and insta' returns list
+  [PASS] plan 'set up a Python virtual environment and insta' has steps  → 3
+    → 3 steps: 'python -m venv venv'...
+  [PASS] plan 'create a git repository and make first commit' returns list
+  [PASS] plan 'create a git repository and make first commit' has steps  → 3
+    → 3 steps: 'git init'...
+  [PASS] plan 'build and run a docker container for nginx' returns list
+  [PASS] plan 'build and run a docker container for nginx' has steps  → 2
+    → 2 steps: 'docker pull nginx'...
+
+────────────────────────────────────────────────────────────────
+  29 · AI Features — ConversationContext
+────────────────────────────────────────────────────────────────
+  [PASS] empty context suffix = ""
+[Aegis] Context noted: I am using Flask with Python 3.12
+[Aegis] Context noted: PostgreSQL is the database on port 5432
+[Aegis] Context noted: Running on Windows 11
+  [PASS] context has 3 facts  → 3
+  [PASS] suffix contains Flask
+  [PASS] suffix contains PostgreSQL
+  [PASS] suffix contains Windows
+  [PASS] suffix starts with newline
+  [PASS] list_context shows Flask
+  [PASS] list_context shows PostgreSQL
+  [PASS] after clear context empty
+  [PASS] after clear suffix = ""
+  [PASS] list_context on empty shows msg
+
+────────────────────────────────────────────────────────────────
+  30 · EnvironmentDetector
+────────────────────────────────────────────────────────────────
+  [PASS] Returns dict
+  [PASS] Detected something  → ['pip', 'python']
+  Detected: ['pip', 'python']
+  [PASS] Empty dir returns dict
+
+────────────────────────────────────────────────────────────────
+  31 · PackageManager
+────────────────────────────────────────────────────────────────
+  [PASS] Instantiates ok
+  [PASS] package_managers is dict
+  [PASS] pip detected
+  Available: ['winget', 'pip']
+
+────────────────────────────────────────────────────────────────
+  32 · CommandDetector
+────────────────────────────────────────────────────────────────
+  [PASS] Instantiates ok
+  [PASS] get_suggestions returns list
+  [PASS] expand_alias returns str
+
+────────────────────────────────────────────────────────────────
+  33 · HelpSystem
+────────────────────────────────────────────────────────────────
+  [PASS] Instantiates ok
+  [PASS] show_help('git') produces output
+  [PASS] show_help('pip') produces output
+  [PASS] show_help('docker') produces output
+  [PASS] show_help('python') produces output
+
+────────────────────────────────────────────────────────────────
+  SUMMARY
+────────────────────────────────────────────────────────────────
+
+  Total    : 558
+  Passed   : 557
+  Failed   : 1
+  Skipped  : 0
+
+  Score    : 99.8%  (557/558 non-skipped)
+
