@@ -40,7 +40,7 @@ THEMES = {
         'warning':   '\033[93m',
         'error':     '\033[91m',
         'muted':     '\033[32m',   # dim green
-        'highlight': '\033[97m',   # white
+        'highlight': '\033[97m',   # bright white
         'reset':     '\033[0m',
     },
     'minimal': {
