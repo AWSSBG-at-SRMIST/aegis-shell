@@ -20,7 +20,7 @@ THEMES = {
         'warning':   '\033[93m',   # bright yellow
         'error':     '\033[91m',   # bright red
         'muted':     '\033[90m',
-        'highlight': '\033[95m',   # magenta
+        'highlight': '\033[95m',   # bright magenta
         'reset':     '\033[0m',
     },
     'light': {
