@@ -9,7 +9,7 @@ THEMES = {
         'success':   '\033[32m',   # green
         'warning':   '\033[33m',   # yellow
         'error':     '\033[31m',   # red
-        'muted':     '\033[90m',   # grey
+        'muted':     '\033[90m',   # dark gray
         'highlight': '\033[96m',   # bright cyan
         'reset':     '\033[0m',
     },
